@@ -1,6 +1,6 @@
-@ECHO off
+@echo off
 rem T64 to D64 Bulk Converter
-rem Version 0.1
+rem Version 0.2
 rem By: Build-0-Matic
 
 rem I created this short script out of necessity.
@@ -17,18 +17,15 @@ rem and the SD2IEC adapter for the original Commodore computers.
 
 rem Enjoy!
 
-rem Change to Commodore 64 colors (or at least close to it)
-color 9B
-
 rem -------------------------------------------------------
 rem -----------------------IMPORTANT-----------------------
 rem -------------------------------------------------------
-rem Set the path to the C1541 application on the next line.
+rem set the path to the C1541 application on the next line.
 set C1541_PATH="%~dp0\C1541"
 rem -------------------------------------------------------
 
 rem Check if the path and the executable exist
-IF EXIST %C1541_PATH% SET PATH=%PATH%;%C1541_PATH%
+if exist %C1541_PATH% set PATH=%PATH%;%C1541_PATH%
 if not exist %C1541_PATH%\C1541.exe goto Error
 
 rem Get final extension of dropped files to see if it is a folder
@@ -44,36 +41,62 @@ for %%* in (.) do set CurrDirName=%%~n*
 
 rem change codepage to allow nice graphics ;-)
 chcp 65001
+rem set title
+title T64 to D64
+rem switch to 120 columns
+mode con:cols=120 lines=24
+rem Change to Commodore 64 colors (or at least close to it)
+color 9B
+rem clear screen
 cls
 
-ECHO                ░▒▓▓███▓▓▒░                                                                                              
-ECHO            ░▒▓████████████▒                                                                                             
-ECHO         ▒█████████████████▓                                                                                             
-ECHO       ▒███████████████████▓                                                                                             
-ECHO     ░█████████████████████▓                                                                                             
-ECHO    ▓█████████████▓▒▒▒▒▒▓▓█▓                                                                                             
-ECHO   ▓███████████▒                         ░                                                                               
-ECHO  ░██████████▒              █████████████▓    ███▓▓▓███▒  ░▓██▓       ▓█▒    ░              ▓▓▓███▓▒      ▓██▓▒      ░█▓ 
-ECHO  ██████████               ░████████████░     ▓▓▒███▒▓▓░ ▓██▒▓██     ▓██▓   ░██▓░           ▓██▒▓▓███░  ░██▒▒██▒    ▒███ 
-ECHO ▒█████████                ░██████████░          ▒█▓    ░██         ██▓█▒    █████▓▒        ▓█▓    ▒██  ██░        ▒█▓██ 
-ECHO ██████████                 ▓▒▒▒▒▒▒▒             ▒██    ▒██▓███▒   ██ ▒█▒    ███▓█████▓▒    ▓█▓     ██  ██▓███▓   ▓█  ██ 
-ECHO ██████████                 ▒▒░░░░▒▒             ▒██    ▒██   ██░ ██  ▓█▓    ██▓███████▓    ▓█▓     ██  ██▓  ▒█▓ ▓█▒ ░██ 
-ECHO ▒█████████░               ░██▓▓▓▓▓██▓░          ▒██    ░██   ▓█░▒████████   ██████▓░       ▓█▓    ▓██  ██▒  ░██ ████████
-ECHO  ██████████               ░██▓▓▓▓▓▓███▓░        ▓██     ▓██▓▓██      ▓█▓   ░██▓▒           █████████   ░██▓▓██░     ░██ 
-ECHO   ██████████▒              █████████████▓       ░▓▒       ▓▓▓▒       ░▓░    ▒              ▒▒▒▓▓▓▒░      ▒▓▓▒        ▓▒ 
-ECHO   ▒███████████▒                                                                                                         
-ECHO    ▒█████████████▓▓▒▒▒▒▓██▓                         BULK CONVERTER
-ECHO     ░█████████████████████▓                                                                                             
-ECHO       ▒███████████████████▓                        By: Build-0-Matic
-ECHO         ░▓████████████████▓                                                                                             
-ECHO             ░▒▓▓▓█████████▒                                                                                             
-ECHO                 ███████▓█▓                                                                                                                     
-ECHO.
-
+echo                ░▒▓▓███▓▓▒░                                                                                              
+echo            ░▒▓████████████▒                                                                                             
+echo         ▒█████████████████▓                                                                                             
+echo       ▒███████████████████▓                                                                                             
+echo     ░█████████████████████▓                                                                                             
+echo    ▓█████████████▓▒▒▒▒▒▓▓█▓                                                                                             
+echo   ▓███████████▒                         ░                                                                               
+echo  ░██████████▒              █████████████▓    ███▓▓▓███▒  ░▓██▓       ▓█▒    ░              ▓▓▓███▓▒      ▓██▓▒      ░█▓ 
+echo  ██████████               ░████████████░     ▓▓▒███▒▓▓░ ▓██▒▓██     ▓██▓   ░██▓░           ▓██▒▓▓███░  ░██▒▒██▒    ▒███ 
+echo ▒█████████                ░██████████░          ▒█▓    ░██         ██▓█▒    █████▓▒        ▓█▓    ▒██  ██░        ▒█▓██ 
+echo ██████████                 ▓▒▒▒▒▒▒▒             ▒██    ▒██▓███▒   ██ ▒█▒    ███▓█████▓▒    ▓█▓     ██  ██▓███▓   ▓█  ██ 
+echo ██████████                 ▒▒░░░░▒▒             ▒██    ▒██   ██░ ██  ▓█▓    ██▓███████▓    ▓█▓     ██  ██▓  ▒█▓ ▓█▒ ░██ 
+echo ▒█████████░               ░██▓▓▓▓▓██▓░          ▒██    ░██   ▓█░▒████████   ██████▓░       ▓█▓    ▓██  ██▒  ░██ ████████
+echo  ██████████               ░██▓▓▓▓▓▓███▓░        ▓██     ▓██▓▓██      ▓█▓   ░██▓▒           █████████   ░██▓▓██░     ░██ 
+echo   ██████████▒              █████████████▓       ░▓▒       ▓▓▓▒       ░▓░    ▒              ▒▒▒▓▓▓▒░      ▒▓▓▒        ▓▒ 
+echo   ▒███████████▒                                                                                                         
+echo    ▒█████████████▓▓▒▒▒▒▓██▓                         BULK CONVERTER
+echo     ░█████████████████████▓                                                                                             
+echo       ▒███████████████████▓                        By: Build-0-Matic
+echo         ░▓████████████████▓                                                                                             
+echo             ░▒▓▓▓█████████▒                                                                                             
+echo                 ███████▓█▓                                                                                                                     
+echo.
+echo.
+rem Count number of files in folder.
+for %%A in (*.t64) do set /A NumFiles += 1
+echo File count = %NumFiles%
+echo.
+echo Converting...
 rem Parse every file in the folder and perform the magic.
-for %%x in (*.t64) do %C1541_PATH%\c1541.exe -format "fromt64,01" d64 "%%~nx.d64" -tape "%%x"
-
+for %%x in (*.t64) do (
+call :progress
+%C1541_PATH%\c1541.exe -verbose off -silent on -format "fromt64,01" d64 "%%~nx.d64" -tape "%%x"
+)
+echo Thank you for using the T64 to D64 script
+pause
 exit
+
+:progress
+rem sequentially increase the file counter by 1 at each iteration.
+set /A Count += 1
+rem calculate the process percentage. you have to multiply first by 100 because the set /a function doesn't support fractions.
+set /A pct=100 * Count / NumFiles
+rem set title to show the progress made.
+title Progress: %pct%/100
+exit /b
+
 :F_Error
 cls
 echo FILE ERROR
@@ -81,6 +104,7 @@ echo.
 echo This script only works on folders, not individual files.
 pause
 exit
+
 :Error
 cls
 echo ---------------------- ERROR! ----------------------
